@@ -1,7 +1,7 @@
 // registerDoctor.js
 
 const bcrypt = require("bcrypt");
-const Doctor = require("./models/Doctor");
+const { Doctor, User } = require('./models/schemas');
 const mongoose= require("mongoose");
 
 // Connexion à la base de données MongoDB

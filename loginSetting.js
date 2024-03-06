@@ -1,7 +1,11 @@
 // Importer le modèle Doctor depuis le fichier doctor.js
-const Doctor = require("./pulseX_website/models/Doctor");
+const { Doctor, User } = require('./pulseX_website/models/schemas');
 const bcrypt = require("bcrypt");
+const mongoose = require("mongoose");
 
+mongoose.connect("mongodb://localhost:27017/website_doctor", { useNewUrlParser: true, useUnifiedTopology: true })
+  .then(() => console.log("Connexion à MongoDB réussie"))
+  .catch((err) => console.error("Erreur de connexion à MongoDB :", err));
 
 // Route de connexion
 exports.loginDoctor = async (req, res) => {
