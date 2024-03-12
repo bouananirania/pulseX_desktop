@@ -6,7 +6,7 @@ const { loginDoctor, getDoctorSettings } = require('./loginSetting');
 const Add_Patient= require("./AddUser");
 const { delet_user, update_user } = require("./UpdateDeleteUser"); 
 const app = express();
-const port = 3000;
+const port = process.env.PORT|| 3000 ;
 
 // Middleware pour analyser les corps de requête en JSON
 app.use(express.json());
