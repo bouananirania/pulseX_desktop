@@ -1,15 +1,11 @@
-const express = require('express');
-const mongoose = require('mongoose');
-const { Doctor, User } = require('./pulseX_website/models/schemas');
-const app = express();
+// Importer la connexion à la base de données des patients depuis db.js
+const { patientDB } = require('./db');
 
-// Connect to MongoDB
-mongoose.connect("mongodb://localhost:27017/app_db")
-  .then(() => console.log("Connexion à MongoDB réussie"))
-  .catch((err) => console.error("Erreur de connexion à MongoDB :", err));
+// Importer le modèle de schéma User depuis le fichier de schémas
+const { User } = require('./pulseX_website/models/schemas');
 
 // Route to handle user creation
-module.exports  = async function (req, res) {
+module.exports = async function (req, res) {
   try {
     // Extract user data from request body
     const { fullName, email, idPulse, dateOfBirth, bloodType, wilaya, password, confirmPassword } = req.body;
@@ -26,14 +22,19 @@ module.exports  = async function (req, res) {
       confirmPassword
     });
 
-    // Save the user to the database
-    await newUser.save();
-
-    res.status(201).json(newUser);
+    // Save the user to the database using the patientDB connection
+    await patientDB.then(() => {
+      newUser.save((err, doc) => {
+        if (err) {
+          console.error(err);
+          res.status(500).send('Error creating user');
+        } else {
+          res.status(201).json(doc);
+        }
+      });
+    });
   } catch (err) {
     console.error(err);
     res.status(500).send('Error creating user');
   }
 };
-
-
