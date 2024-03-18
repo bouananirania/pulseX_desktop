@@ -3,7 +3,7 @@
 const mongoose = require('mongoose');
 
 // Connexion à la base de données des médecins
-const doctorDB = mongoose.createConnection("mongodb+srv://Doctors:doctor2024@doctors.ihw52o6.mongodb.net/Doctors");
+const doctorDB = mongoose.createConnection("mongodb+srv://Doctors:doctor2024@doctors.ihw52o6.mongodb.net/?retryWrites=true&w=majority&appName=Doctors");
 
 doctorDB.on('connected', () => {
   console.log("Connexion à la base de données des médecins réussie");
@@ -14,7 +14,7 @@ doctorDB.on('error', (err) => {
 });
 
 // Connexion à la base de données des patients
-const patientDB = mongoose.createConnection("mongodb+srv://patients:patients@patients.5m4b6xi.mongodb.net/patients");
+const patientDB = mongoose.createConnection("mongodb+srv://patients:patients@patients.5m4b6xi.mongodb.net/?retryWrites=true&w=majority&appName=patients");
 
 patientDB.on('connected', () => {
   console.log("Connexion à la base de données des patients réussie");
