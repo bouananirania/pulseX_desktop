@@ -2,7 +2,7 @@
 
 const express = require('express');
 const { patientDB } = require('./db'); // Importer la connexion à la base de données des patients
-const { User } = require('./pulseX_website/models/schemas');
+const { User } = require('./schemas');
 
 // Delete user
 exports.delet_user = async (req, res) => {

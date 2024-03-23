@@ -2,7 +2,7 @@
 const { patientDB } = require('./db');
 
 // Importer le modèle de schéma User depuis le fichier de schémas
-const { User } = require('./pulseX_website/models/schemas');
+const { User } = require('./schemas');
 
 // Route to handle user creation
 module.exports = async function (req, res) {

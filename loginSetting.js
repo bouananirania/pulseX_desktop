@@ -1,5 +1,5 @@
 // Importer le modèle Doctor depuis le fichier doctor.js
-const { Doctor } = require('./pulseX_website/models/schemas');
+const { Doctor } = require('./schemas');
 const bcrypt = require("bcrypt");
 const { doctorDB } = require('./db');
 
