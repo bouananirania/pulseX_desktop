@@ -1,7 +1,7 @@
 // index.js
 
 const express = require("express");
-const registerDoctor = require("./pulseX_website/registerDoctor");
+
 const { loginDoctor, getDoctorSettings } = require('./loginSetting');
 const Add_Patient= require("./AddUser");
 const { delet_user, update_user } = require("./UpdateDeleteUser"); 
@@ -12,7 +12,6 @@ const port = process.env.PORT|| 3000 ;
 app.use(express.json());
 
 
-app.post('/register_dr', registerDoctor);
 // Route pour se connecter en tant que médecin
 app.post("/login_dr", loginDoctor);
 // Route pour récupérer les paramètres du médecin
