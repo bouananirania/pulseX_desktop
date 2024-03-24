@@ -1,7 +1,8 @@
+
 // Importer le modèle Doctor depuis le fichier doctor.js
-const { Doctor } = require('./schemas');
+const { Doctor } = require('../models/Doctor');
 const bcrypt = require("bcrypt");
-const { doctorDB } = require('./db');
+const { doctorDB } = require('../config/db');
 
 // Route de connexion
 exports.loginDoctor = async (req, res) => {
