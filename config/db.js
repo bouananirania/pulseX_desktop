@@ -1,4 +1,3 @@
-
 // db.js
 
 const mongoose = require('mongoose');
@@ -25,7 +24,19 @@ patientDB.on('error', (err) => {
   console.error("Erreur de connexion à la base de données des patients :", err);
 });
 
+// Connexion à la base de données arduino
+const bpmdb = mongoose.createConnection("mongodb+srv://bpmdb:bpmdb@bpmdb.7o5wts5.mongodb.net/?retryWrites=true&w=majority&appName=bpmdb");
+
+bpmdb.on('connected', () => {
+  console.log("Connexion à la base de données bpm réussie");
+});
+
+bpmdb.on('error', (err) => {
+  console.error("Erreur de connexion à la base de données bpm :", err);
+});
+
 module.exports = {
   doctorDB,
-  patientDB
+  patientDB,
+  bpmdb
 };
