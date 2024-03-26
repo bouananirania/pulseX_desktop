@@ -14,7 +14,7 @@ const port = process.env.PORT || 3000;
 
 // Middleware pour analyser les corps de requête en JSON
 app.use(express.json());
-
+app.use(express.urlencoded({extended:true}))
 // Route principale pour les utilisateurs
 app.use("/users", userRoutes);
 
