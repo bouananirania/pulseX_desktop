@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const userController = require('../controllers/userController');
-const dbq=require('../models/uUer')
+const dbq=require('../models/User')
 // Route pour créer un nouvel utilisateur
 router.post('/addPatient', userController.createUser);
 
