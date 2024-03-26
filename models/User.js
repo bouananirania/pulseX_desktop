@@ -8,7 +8,7 @@ const userSchema = new mongoose.Schema({
     bloodType: { type: String, required: true },
     wilaya: { type: String, required: true },
     password: { type: String, required: true },
-    confirmPassword:{ type: String, required: true }
+    PhoneNumber:{ type: Number, required: true }
 });
 
 const User = mongoose.model("User", userSchema);
