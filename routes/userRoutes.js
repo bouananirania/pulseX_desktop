@@ -10,7 +10,7 @@ router.delete('/:userId', userController.deleteUser);
 
 // Route pour mettre à jour un utilisateur
 router.put('/:userId', userController.updateUser);
-route.get('/fetch',async (req,res)=>{
+router.get('/fetch',async (req,res)=>{
   try{
     const fetch =await dbq.find({})
     res.status(200).json(fetch)
