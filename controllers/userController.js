@@ -1,8 +1,12 @@
 const { patientDB, bpmdb } = require('../config/db');
 const  User   = require('../models/User');
 const  Measurement   = require('../models/measurement');
+const jwt = require('jsonwebtoken');
 
-
+// Fonction pour générer un token JWT
+const generateAuthToken = (userId) => {
+    return jwt.sign({ userId }, 'secretKey', { expiresIn: '1h' });
+  };
 
 // Créer un nouvel utilisateur
 exports.createUser = async (req, res) => {
@@ -38,8 +42,9 @@ exports.createUser = async (req, res) => {
             try {
               // Sauvegarder la nouvelle mesure dans la base de données de mesure (bpmdb)
               const measurement = await newMeasurement.save();
-  
-              res.status(201).json({ user, measurement }); // Envoyer la réponse avec l'utilisateur et la mesure créés
+              // Générer un token JWT
+              const token = generateAuthToken(user._id);
+              res.status(201).json({ user, measurement, token }); // Envoyer la réponse avec l'utilisateur et la mesure créés
             } catch (err) {
               console.error(err);
               res.status(500).send('Erreur lors de l\'ajout de l\'ID de l\'utilisateur à la base de données de mesure');
@@ -60,6 +65,16 @@ exports.createUser = async (req, res) => {
 exports.deleteUser = async (req, res) => {
   try {
     const userId = req.params.userId;
+    // Vérifier si le token JWT est présent dans les en-têtes de la requête
+    const token = req.header('Authorization');
+    if (!token) return res.status(401).send('Accès refusé. Authentification requise.');
+
+    // Vérifier et décoder le token JWT
+    const decoded = jwt.verify(token, 'secretKey');
+    
+    // Vérifier si l'ID de l'utilisateur dans le token correspond à l'ID de l'utilisateur à supprimer
+    if (decoded.userId !== userId) return res.status(403).send('Accès refusé. Token JWT invalide.');
+
     await patientDB.once('open', () => {
       User.findByIdAndDelete(userId, (err, doc) => {
         if (err) {
@@ -80,6 +95,15 @@ exports.deleteUser = async (req, res) => {
 exports.updateUser = async (req, res) => {
   try {
     const userId = req.params.userId;
+    // Vérifier si le token JWT est présent dans les en-têtes de la requête
+    const token = req.header('Authorization');
+    if (!token) return res.status(401).send('Accès refusé. Authentification requise.');
+
+    // Vérifier et décoder le token JWT
+    const decoded = jwt.verify(token, 'secretKey');
+    
+    // Vérifier si l'ID de l'utilisateur dans le token correspond à l'ID de l'utilisateur à supprimer
+    if (decoded.userId !== userId) return res.status(403).send('Accès refusé. Token JWT invalide.');
     await patientDB.once('open', () => {
       User.findByIdAndUpdate(userId, req.body, { new: true }, (err, updatedUser) => {
         if (err) {
