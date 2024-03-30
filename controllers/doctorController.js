@@ -3,20 +3,13 @@
 const { Doctor } = require('../models/Doctor');
 const bcrypt = require("bcrypt");
 const { doctorDB } = require('../config/db');
+const docserv =require('../services/doctorsrv');
 
 // Route de connexion
 exports.loginDoctor = async (req, res) => {
   try {
     const { email, password } = req.body;
-
-    // Utiliser la connexion à la base de données des médecins depuis db.js
-    await new Promise((resolve) => {
-      doctorDB.once('connected', () => {
-        resolve();
-      });
-    });
-
-    // Trouver le docteur dans la base de données des médecins
+     // Trouver le docteur dans la base de données des médecins
     const doctor = await Doctor.findOne({ email });
     if (!doctor) {
       return res.status(400).send("Adresse e-mail incorrecte");
@@ -28,9 +21,11 @@ exports.loginDoctor = async (req, res) => {
       return res.status(400).send("Mot de passe incorrect");
     }
      // Générer un nouveau jeton JWT pour le médecin
-    const token = generateJWT(doctor._id);
-    // Si tout est correct, renvoyer un message de connexion réussie
-    res.status(200).send("Connecté avec succès", token);
+     let tokendata ={id:doctor._id,email:doctor.email,fullname:doctor.fullname,password:doctor.password,phone:doctor.phone,Age:doctor.Age,Specialite:doctor.Specialite,willaya:doctor.willaya}
+     var token =await docserv.generatetoken(tokendata,'secretKey',"1h")
+   
+   res.json({status:true,success:"user succsefully",token:token})
+
   } catch (err) {
     // En cas d'erreur, renvoyer un message d'erreur avec le code d'erreur
     res.status(500).send({ message: err.message });
@@ -41,14 +36,7 @@ exports.loginDoctor = async (req, res) => {
 exports.getDoctorSettings = async (req, res) => {
   try {
     const { email } = req.body;
-
-    // Utiliser la connexion à la base de données des médecins depuis db.js
-    await new Promise((resolve) => {
-      doctorDB.once('connected', () => {
-        resolve();
-      });
-    });
-
+    
     // Trouver les paramètres du docteur dans la base de données des médecins
     const doctor = await Doctor.findOne({ email });
     if (!doctor) {

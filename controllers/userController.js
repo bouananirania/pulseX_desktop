@@ -1,65 +1,25 @@
 const { patientDB, bpmdb } = require('../config/db');
 const  User   = require('../models/User');
 const  Measurement   = require('../models/measurement');
+const userserv =require('../services/usersrvc')
 const jwt = require('jsonwebtoken');
 
-// Fonction pour générer un token JWT
-const generateAuthToken = (userId) => {
-    return jwt.sign({ userId }, 'secretKey', { expiresIn: '10h' });
-  };
-
-// Créer un nouvel utilisateur
 exports.createUser = async (req, res) => {
     try {
-      const { fullName, email, idPulse, dateOfBirth, PhoneNumber, bloodType, wilaya, password } = req.body;
-  
-      // Créer un nouvel utilisateur
-      const newUser = new User({
-        fullName,
-        email,
-        idPulse,
-        dateOfBirth: new Date(dateOfBirth),
-        PhoneNumber,
-        bloodType,
-        wilaya,
-        password,
-      });
-  
-      // Établir la connexion à la base de données des patients
-      patientDB.once('open', async () => {
-        try {
-          // Sauvegarder le nouvel utilisateur dans la base de données des patients
-          const user = await newUser.save();
-  
-          // Créer une nouvelle mesure associée à l'utilisateur dans la base de données de mesure
-          const newMeasurement = new Measurement({
-            user: user._id, // Utiliser l'ID de l'utilisateur nouvellement créé
-            bpm: null // Initialiser le BPM à null (ou une valeur par défaut)
-          });
-  
-          // Établir la connexion à la base de données de mesure (bpmdb)
-          bpmdb.once('open', async () => {
-            try {
-              // Sauvegarder la nouvelle mesure dans la base de données de mesure (bpmdb)
+      const { fullName, email, idPulse, age, PhoneNumber, bloodType, wilaya, password } = req.body;
+      const usercontrol =await userserv.registeruser(fullName, email, idPulse, age, PhoneNumber, bloodType, wilaya, password)
+      let tokendata ={id:usercontrol._id,email:usercontrol.email,fullName:usercontrol.fullname,password:usercontrol.password,phonenumber:usercontrol.PhoneNumber,Age:usercontrol.age,Grp:usercontrol.bloodType,willaya:usercontrol.willaya,idpulse:usercontrol.idPulse}
+      var usertoken =await userserv.generatetoken(tokendata,"patients","10h")
+          
+      // Créer une nouvelle mesure associée à l'utilisateur dans la base de données de mesure
+             const newMeasurement = new Measurement({
+              user: user._id, 
+              bpm: null 
+               });
               const measurement = await newMeasurement.save();
-              // Générer un token JWT
-              const token = generateAuthToken(user._id);
-              res.status(201).json({ user, measurement, token }); // Envoyer la réponse avec l'utilisateur et la mesure créés
-            } catch (err) {
-              console.error(err);
-              res.status(500).send('Erreur lors de l\'ajout de l\'ID de l\'utilisateur à la base de données de mesure');
-            }
-          });
-        } catch (err) {
-          console.error(err);
-          res.status(500).send('Erreur lors de la création de l\'utilisateur');
-        }
-      });
-    } catch (err) {
-      console.error(err);
-      res.status(500).send('Erreur lors de la création de l\'utilisateur');
-    }
-  };
+              
+              res.json({status:true,success:usercontrol})   
+    }catch(err){console.log(err)}};
   
 // Supprimer un utilisateur
 exports.deleteUser = async (req, res) => {
