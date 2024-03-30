@@ -8,12 +8,20 @@ exports.createUser = async (req, res) => {
     try {
       const { fullName, email, idPulse, age, PhoneNumber, bloodType, wilaya, password } = req.body;
       const usercontrol =await userserv.registeruser(fullName, email, idPulse, age, PhoneNumber, bloodType, wilaya, password)
-      let tokendata ={id:usercontrol._id,email:usercontrol.email,fullName:usercontrol.fullname,password:usercontrol.password,phonenumber:usercontrol.PhoneNumber,Age:usercontrol.age,Grp:usercontrol.bloodType,willaya:usercontrol.willaya,idpulse:usercontrol.idPulse}
+      let tokendata ={id: usercontrol.id,
+        email: usercontrol.email,
+        fullName: usercontrol.fullName,
+        password: usercontrol.password,
+        phonenumber: usercontrol.PhoneNumber,
+        Age: usercontrol.age,
+        Grp: usercontrol.bloodType,
+        willaya: usercontrol.wilaya,
+        idpulse: usercontrol.idPulse}
       var usertoken =await userserv.generatetoken(tokendata,"patients","10h")
           
       // Créer une nouvelle mesure associée à l'utilisateur dans la base de données de mesure
              const newMeasurement = new Measurement({
-              user: user._id, 
+              user: usercontrol._id, 
               bpm: null 
                });
               const measurement = await newMeasurement.save();

@@ -1,9 +1,11 @@
-const user=require('../models/User')
+const user=require('../models/User');
+const jwt = require('jsonwebtoken');
 class serviceuser{
      static async registeruser(fullName, email, idPulse, age, PhoneNumber, bloodType, wilaya, password){
        try{
-       const newpatient=new user({fullName, email, idPulse, age, PhoneNumber, bloodType, wilaya, password})
-       return await newpatient.save()
+       const newpatient=new user({fullName, email, idPulse, age, PhoneNumber, bloodType, wilaya, password});
+       const savedUser = await newpatient.save();
+       return savedUser;
           
        }catch(err){console.log(err)}
      }
