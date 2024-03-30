@@ -1,5 +1,6 @@
 const mongoose = require('mongoose');
-const User = require('./User'); // Importer le modèle User
+const bpmdb = require('../config/db');
+const User = require('./User'); 
 
 const measurementSchema = new mongoose.Schema({
     user: { type: mongoose.Schema.Types.ObjectId, ref: 'User', required: true },
@@ -7,6 +8,6 @@ const measurementSchema = new mongoose.Schema({
   createdAt: { type: Date, default: Date.now }
 });
 
-const Measurement = mongoose.model('Measurement', measurementSchema);
+const Measurement = bpmdb.bpmdb.model('Measurement', measurementSchema);
 
 module.exports = Measurement;
