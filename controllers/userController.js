@@ -5,13 +5,13 @@ const jwt = require('jsonwebtoken');
 
 // Fonction pour générer un token JWT
 const generateAuthToken = (userId) => {
-    return jwt.sign({ userId }, 'secretKey', { expiresIn: '1h' });
+    return jwt.sign({ userId }, 'secretKey', { expiresIn: '10h' });
   };
 
 // Créer un nouvel utilisateur
 exports.createUser = async (req, res) => {
     try {
-      const { fullName, email, idPulse, dateOfBirth, bloodType, wilaya, password, confirmPassword } = req.body;
+      const { fullName, email, idPulse, dateOfBirth, PhoneNumber, bloodType, wilaya, password } = req.body;
   
       // Créer un nouvel utilisateur
       const newUser = new User({
@@ -19,10 +19,10 @@ exports.createUser = async (req, res) => {
         email,
         idPulse,
         dateOfBirth: new Date(dateOfBirth),
+        PhoneNumber,
         bloodType,
         wilaya,
         password,
-        confirmPassword
       });
   
       // Établir la connexion à la base de données des patients

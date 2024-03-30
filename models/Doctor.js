@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+const doctorDB = require('../config/db')
 
 const doctorSchema = new mongoose.Schema({
     fullName: { type: String, required: true },
@@ -11,6 +12,6 @@ const doctorSchema = new mongoose.Schema({
     confirmPassword: { type: String, required: true }
 });
 
-const Doctor = mongoose.model('Doctor', doctorSchema);
+const Doctor = doctorDB.doctorDB.model('Doctor', doctorSchema);
 
 module.exports = Doctor;
