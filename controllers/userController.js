@@ -44,7 +44,7 @@ exports.deleteUser = async (req, res) => {
     // Vérifier si l'ID de l'utilisateur dans le token correspond à l'ID de l'utilisateur à supprimer
     if (decoded.userId !== userId) return res.status(403).send('Accès refusé. Token JWT invalide.');
 
-    await patientDB.once('open', () => {
+    
       User.findByIdAndDelete(userId, (err, doc) => {
         if (err) {
           console.error(err);
@@ -53,7 +53,7 @@ exports.deleteUser = async (req, res) => {
           res.status(204).send();
         }
       });
-    });
+    
   } catch (err) {
     console.error(err);
     res.status(500).send('Erreur lors de la suppression de l\'utilisateur');
