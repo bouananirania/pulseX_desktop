@@ -88,3 +88,7 @@ exports.updateUser = async (req, res) => {
     res.status(500).send('Erreur lors de la mise à jour de l\'utilisateur');
   }
 };
+   exports.getuserdata=async(req,res)=>{
+    const {userId}=req.body
+    let userdata =await userserv.getdata(userId);
+  res.json({status:true,success:userdata});}
