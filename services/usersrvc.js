@@ -13,7 +13,7 @@ class serviceuser{
      static async getdata(userId){
       try{
       const data=await user.find({userId})
-      return data
+      return data;
 
       }catch(err){console.log(err)}
     }

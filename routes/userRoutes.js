@@ -9,6 +9,6 @@ router.delete('/:userId', userController.deleteUser);
 
 // Route pour mettre à jour un utilisateur
 router.put('/:userId', userController.updateUser);
-router.get('/getdata',userController.getuserdata);
+router.get('/getdata/:userId',userController.getuserdata);
 
 module.exports = router;

@@ -55,7 +55,7 @@ exports.deleteUser = async (req, res) => {
       }
   
       // Renvoyer une réponse 204 (Pas de contenu) pour indiquer que la suppression a réussi
-      res.status(204).send('deleted succefully ');
+      res.status(204).send();
     } catch (err) {
       // Gérer les erreurs
       console.error(err);
