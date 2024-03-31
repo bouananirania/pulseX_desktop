@@ -47,22 +47,21 @@ exports.deleteUser = async (req, res) => {
     if (decoded.userId !== userId) return res.status(403).send('Accès refusé. Token JWT invalide.');*/
 
     
-      User.findByIdAndDelete(userId, (err, doc) => {
-        if (err) {
-          console.error(err);
-          res.status(500).send('Erreur lors de la suppression de l\'utilisateur');
-        } else {
-          res.status(204).send();
-        }
-      });
-    
-  } catch (err) {
-    console.error(err);
-    res.status(500).send('Erreur lors de la suppression de l\'utilisateur');
-  }
-};
-
-// Mettre à jour un utilisateur
+    const deletedUser = await User.findByIdAndDelete(userId);
+        // Vérifier si l'utilisateur a été supprimé avec succès
+    if (!deletedUser) {
+        // Si l'utilisateur n'est pas trouvé, renvoyer une réponse 404
+        return res.status(404).json({ success: false, message: 'Utilisateur non trouvé' });
+      }
+  
+      // Renvoyer une réponse 204 (Pas de contenu) pour indiquer que la suppression a réussi
+      res.status(204).send();
+    } catch (err) {
+      // Gérer les erreurs
+      console.error(err);
+      res.status(500).json({ success: false, message: 'Erreur lors de la suppression de l\'utilisateur' });
+    }
+  };
 exports.updateUser = async (req, res) => {
   try {
     const userId = req.params.userId;
