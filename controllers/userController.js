@@ -92,6 +92,15 @@ exports.updateUser = async (req, res) => {
   };
 
    exports.getuserdata=async(req,res)=>{
-    const {userId}=req.body
-    let userdata =await userserv.getdata(userId);
-  res.json({status:true,success:userdata});}
+    try {
+    const {userId}=req.params.userId;
+    if (!userId) {
+        return res.status(400).json({ status: false, message: "L'identifiant de l'utilisateur est manquant dans la requête." });
+    }
+    
+    const userData = await userserv.getdata(userId); // Utiliser userService.getData pour obtenir les données de l'utilisateur
+    res.json({ status: true, success: userData });
+      } catch (err) {
+    console.error(err);
+    res.status(500).json({ status: false, message: "Une erreur s'est produite lors de la récupération des données de l'utilisateur." });
+  }}
