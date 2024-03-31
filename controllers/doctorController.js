@@ -21,8 +21,8 @@ exports.loginDoctor = async (req, res) => {
       return res.status(400).send("Mot de passe incorrect");
     }
      // Générer un nouveau jeton JWT pour le médecin
-     let tokendata ={id:doctor._id,email:doctor.email,fullname:doctor.fullname,password:doctor.password,phone:doctor.phone,Age:doctor.Age,Specialite:doctor.Specialite,willaya:doctor.willaya}
-     var token =await docserv.generatetoken(tokendata,'secretKey',"1h")
+     let tokendata ={id:doctor._id,email:doctor.email,fullname:doctor.fullName,password:doctor.password,phone:doctor.phone,Age:doctor.age,Specialite:doctor.specialite,willaya:doctor.willaya}
+     var token =await docserv.generateToken(tokendata,'secretKey',"1h")
    
    res.json({status:true,success:"user succsefully",token:token})
 
@@ -42,7 +42,7 @@ exports.getDoctorSettings = async (req, res) => {
     if (!doctor) {
       return res.status(400).send("Adresse e-mail incorrecte");
     }
-       // Vérifier si le token JWT est présent dans les en-têtes de la requête
+       /*
     const token = req.header('Authorization');
     if (!token) return res.status(401).send('Accès refusé. Authentification requise.');
 
@@ -50,7 +50,8 @@ exports.getDoctorSettings = async (req, res) => {
     const decoded = jwt.verify(token, 'secretKey');
     
     // Vérifier si l'ID de l'utilisateur dans le token correspond à l'ID de l'utilisateur à supprimer
-    if (decoded.userId !== userId) return res.status(403).send('Accès refusé. Token JWT invalide.');
+    if (decoded.userId !== userId) return res.status(403).send('Accès refusé. Token JWT invalide.');*/
+    
     // Renvoyer tous les paramètres du docteur
     res.json(doctor);
   } catch (err) {
@@ -58,3 +59,15 @@ exports.getDoctorSettings = async (req, res) => {
     res.status(500).send("Erreur de serveur");
   }
 };
+exports.verifytoken=async(req,res,next)=>{
+    const tokver=req.cookies.Jwt
+    if(tokver){
+      Jwt.verify(tokver,"mouadio",(err,decodedtoken)=>{
+          if(err){
+              res.status(400).json({msg:"dont user"})
+          }else{
+              next()
+          }
+      })
+    }
+}

@@ -34,7 +34,7 @@ exports.createUser = async (req, res) => {
 exports.deleteUser = async (req, res) => {
   try {
     const userId = req.params.userId;
-    // Vérifier si le token JWT est présent dans les en-têtes de la requête
+    /*// Vérifier si le token JWT est présent dans les en-têtes de la requête
     const token = req.header('Authorization');
     if (!token) return res.status(401).send('Accès refusé. Authentification requise.');
 
@@ -42,7 +42,7 @@ exports.deleteUser = async (req, res) => {
     const decoded = jwt.verify(token, 'secretKey');
     
     // Vérifier si l'ID de l'utilisateur dans le token correspond à l'ID de l'utilisateur à supprimer
-    if (decoded.userId !== userId) return res.status(403).send('Accès refusé. Token JWT invalide.');
+    if (decoded.userId !== userId) return res.status(403).send('Accès refusé. Token JWT invalide.');*/
 
     
       User.findByIdAndDelete(userId, (err, doc) => {
@@ -64,7 +64,7 @@ exports.deleteUser = async (req, res) => {
 exports.updateUser = async (req, res) => {
   try {
     const userId = req.params.userId;
-    // Vérifier si le token JWT est présent dans les en-têtes de la requête
+    /*// Vérifier si le token JWT est présent dans les en-têtes de la requête
     const token = req.header('Authorization');
     if (!token) return res.status(401).send('Accès refusé. Authentification requise.');
 
@@ -72,7 +72,7 @@ exports.updateUser = async (req, res) => {
     const decoded = jwt.verify(token, 'secretKey');
     
     // Vérifier si l'ID de l'utilisateur dans le token correspond à l'ID de l'utilisateur à supprimer
-    if (decoded.userId !== userId) return res.status(403).send('Accès refusé. Token JWT invalide.');
+    if (decoded.userId !== userId) return res.status(403).send('Accès refusé. Token JWT invalide.');*/
    
       User.findByIdAndUpdate(userId, req.body, { new: true }, (err, updatedUser) => {
         if (err) {
