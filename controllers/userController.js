@@ -3,6 +3,8 @@ const  User   = require('../models/User');
 const  Measurement   = require('../models/measurement');
 const userserv =require('../services/usersrvc')
 const jwt = require('jsonwebtoken');
+const bcrypt = require('bcrypt');
+
 
 exports.createUser = async (req, res) => {
     try {
@@ -64,6 +66,7 @@ exports.deleteUser = async (req, res) => {
 exports.updateUser = async (req, res) => {
   try {
     const userId = req.params.userId;
+    const updatedUserData = req.body;
     /*// Vérifier si le token JWT est présent dans les en-têtes de la requête
     const token = req.header('Authorization');
     if (!token) return res.status(401).send('Accès refusé. Authentification requise.');
@@ -74,20 +77,21 @@ exports.updateUser = async (req, res) => {
     // Vérifier si l'ID de l'utilisateur dans le token correspond à l'ID de l'utilisateur à supprimer
     if (decoded.userId !== userId) return res.status(403).send('Accès refusé. Token JWT invalide.');*/
    
-      await User.findByIdAndUpdate(userId, req.body, { new: true }, (err, updatedUser) => {
-        if (err) {
-          console.error(err);
-          res.status(500).send('Erreur lors de la mise à jour de l\'utilisateurrrr');
-        } else {
-          res.json(updatedUser);
-        }
-    
-    });
-  } catch (err) {
-    console.error(err);
-    res.status(500).send('Erreur mise a jour ');
-  }
-};
+    const updatedUser = await User.findByIdAndUpdate(userId, updatedUserData, { new: true });
+    if (!updatedUser) {
+        // Si l'utilisateur n'est pas trouvé, renvoyer une réponse 404
+        return res.status(404).json({ success: false, message: 'Utilisateur non trouvé' });
+      }
+  
+      // Renvoyer l'utilisateur mis à jour en réponse
+      res.json({ success: true, user: updatedUser });
+    } catch (err) {
+      // Gérer les erreurs
+      console.error(err);
+      res.status(500).json({ success: false, message: 'Erreur lors de la mise à jour de l\'utilisateur' });
+    }
+  };
+
    exports.getuserdata=async(req,res)=>{
     const {userId}=req.body
     let userdata =await userserv.getdata(userId);
