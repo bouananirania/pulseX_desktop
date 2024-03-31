@@ -77,7 +77,7 @@ exports.updateUser = async (req, res) => {
       await User.findByIdAndUpdate(userId, req.body, { new: true }, (err, updatedUser) => {
         if (err) {
           console.error(err);
-          res.status(500).send('Erreur lors de la mise à jour de l\'utilisateur');
+          res.status(500).send('Erreur lors de la mise à jour de l\'utilisateurrrr');
         } else {
           res.json(updatedUser);
         }
@@ -85,7 +85,7 @@ exports.updateUser = async (req, res) => {
     });
   } catch (err) {
     console.error(err);
-    res.status(500).send('Erreur lors de la mise à jour de l\'utilisateur');
+    res.status(500).send('Erreur mise a jour ');
   }
 };
    exports.getuserdata=async(req,res)=>{
