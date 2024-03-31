@@ -94,11 +94,11 @@ exports.updateUser = async (req, res) => {
    exports.getuserdata=async(req,res)=>{
     try {
     const {userId}=req.params.userId;
-    if (!userId) {
+    /*if (!userId) {
         return res.status(400).json({ status: false, message: "L'identifiant de l'utilisateur est manquant dans la requête." });
     }
-    
-    const userData = await userserv.getdata(userId); // Utiliser userService.getData pour obtenir les données de l'utilisateur
+    */
+    const userData = await userserv.getdata(userId); 
     res.json({ status: true, success: userData });
       } catch (err) {
     console.error(err);
