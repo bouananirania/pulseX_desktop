@@ -7,11 +7,12 @@ const jwt = require('jsonwebtoken');
 exports.createUser = async (req, res) => {
     try {
       const { fullName, email, idPulse, age, PhoneNumber, bloodType, wilaya, password } = req.body;
-      const usercontrol =await userserv.registeruser(fullName, email, idPulse, age, PhoneNumber, bloodType, wilaya, password)
-      let tokendata ={id: usercontrol.id,
+      const hashedPassword = await bcrypt.hash(password, 10);
+      const usercontrol =await userserv.registeruser(fullName, email, idPulse, age, PhoneNumber, bloodType, wilaya, hashedPassword)
+      let tokendata ={id: usercontrol._id,
         email: usercontrol.email,
         fullName: usercontrol.fullName,
-        password: usercontrol.password,
+        password: hashedPassword,
         phonenumber: usercontrol.PhoneNumber,
         Age: usercontrol.age,
         Grp: usercontrol.bloodType,
@@ -72,7 +73,7 @@ exports.updateUser = async (req, res) => {
     
     // Vérifier si l'ID de l'utilisateur dans le token correspond à l'ID de l'utilisateur à supprimer
     if (decoded.userId !== userId) return res.status(403).send('Accès refusé. Token JWT invalide.');
-    await patientDB.once('open', () => {
+   
       User.findByIdAndUpdate(userId, req.body, { new: true }, (err, updatedUser) => {
         if (err) {
           console.error(err);
@@ -80,7 +81,7 @@ exports.updateUser = async (req, res) => {
         } else {
           res.json(updatedUser);
         }
-      });
+    
     });
   } catch (err) {
     console.error(err);
