@@ -17,7 +17,6 @@ app.use(express.json());
 app.use(express.urlencoded({extended:true}))
 // Route principale pour les utilisateurs
 app.use("/users", userRoutes);
-
 // Route principale pour les médecins
 app.use("/doctors", doctorRoutes);
 //route pour les donnees bpm 
@@ -28,7 +27,6 @@ app.use("/measurement", measurementRoutes);
 io.on('connection', (socket) => {
   console.log('Nouvelle connexion Socket.IO :', socket.id);
   measurementController.sendLatestBpmToClient(io);
-  // Gérer la déconnexion du client
   socket.on('disconnect', () => {
     console.log('Client déconnecté :', socket.id);
   });

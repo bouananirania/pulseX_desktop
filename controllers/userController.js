@@ -1,6 +1,6 @@
 const { patientDB, bpmdb } = require('../config/db');
 const  User   = require('../models/User');
-const  Measurement   = require('../models/measurement');
+
 const userserv =require('../services/usersrvc')
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcrypt');

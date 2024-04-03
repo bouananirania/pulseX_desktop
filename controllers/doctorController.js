@@ -51,7 +51,7 @@ exports.getDoctorSettings = async (req, res) => {
     
     // Vérifier si l'ID de l'utilisateur dans le token correspond à l'ID de l'utilisateur à supprimer
     if (decoded.userId !== userId) return res.status(403).send('Accès refusé. Token JWT invalide.');*/
-    
+
     // Renvoyer tous les paramètres du docteur
     res.json(doctor);
   } catch (err) {
@@ -62,7 +62,7 @@ exports.getDoctorSettings = async (req, res) => {
 exports.verifytoken=async(req,res,next)=>{
     const tokver=req.cookies.Jwt
     if(tokver){
-      Jwt.verify(tokver,"mouadio",(err,decodedtoken)=>{
+      Jwt.verify(tokver,"secretkey",(err,decodedtoken)=>{
           if(err){
               res.status(400).json({msg:"dont user"})
           }else{
