@@ -1,9 +1,10 @@
 const user = require('../models/User');
 const jwt = require('jsonwebtoken');
+const bpmg= require('../models/User');
 class serviceuser{
-     static async registeruser(fullName, email, idPulse, age, PhoneNumber, bloodType, wilaya, password){
+     static async registeruser(fullName, email, idPulse, age, PhoneNumber, bloodType, wilaya, password,details,maladie,gender, Doctorid){
        try{
-       const newpatient=new user({fullName, email, idPulse, age, PhoneNumber, bloodType, wilaya, password});
+       const newpatient=new user({fullName, email, idPulse, age, PhoneNumber, bloodType, wilaya, password,details,maladie,gender,idDoctor});
        const savedUser = await newpatient.save();
        return savedUser;
           
