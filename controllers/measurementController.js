@@ -1,20 +1,24 @@
 
 const User = require('../models/User');
 const userserv =require('../services/usersrvc');
-const { patientDB } = require('../config/db');
+const bpm = require("../models/Bpm")
 const notifier = require('node-notifier');
 
 exports.sendLatestBpmToClient = async (io) => {
    io.on('connection', (socket) => {
     console.log('Client connecté');
-     socket.on('arduinoData', async (data) => {
+     socket.on('arduinoData', async () => {
       try {
-        const { idPulse, latestBpm } = data;
-        io.emit(`latestBpmData_${idPulse} : `,latestBpm );
-        console.log(`Dernières valeurs BPM du capteur ${idPulse} envoyées au client :`, latestBpm);
-        await checkAndSendNotifications(idPulse, latestBpm);
-      } catch (err) {
-        console.error('Erreur lors de la gestion des données Arduino :', err);
+        const latestBpmDataFromDB = await bpm.find().sort({ timestamp: -1 });
+        latestBpmDataFromDB.forEach(async (entry) => {
+          const { idPulse, bpm } = entry; 
+          io.emit(`latestBpmData_${idPulse}`, bpm);
+          console.log(`Dernières valeurs BPM du capteur ${idPulse} :`, bpm);
+          await checkAndSendNotifications(idPulse, bpm); 
+         });
+
+       } catch (err) {
+        console.error('Erreur lors de la gestion des données bpm :', err);
       }
     });
   });

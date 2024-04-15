@@ -25,10 +25,19 @@ patientDB.on('error', (err) => {
 });
 
 // Connexion à la base de données arduino
+//const bpmdb = mongoose.createConnection("mongodb+srv://bpmdb:bpmdb@bpmdb.7o5wts5.mongodb.net/?retryWrites=true&w=majority&appName=bpmdb");
 const bpmdb = mongoose.createConnection("mongodb+srv://bpmdb:bpmdb@bpmdb.7o5wts5.mongodb.net/?retryWrites=true&w=majority&appName=bpmdb");
 
+bpmdb.on('connected', () => {
+  console.log("Connexion à la base de données des patients réussie");
+});
+
+bpmdb.on('error', (err) => {
+  console.error("Erreur de connexion à la base de données des patients :", err);
+});
 
 module.exports = {
   doctorDB,
   patientDB,
+  bpmdb,
 };

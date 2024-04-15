@@ -1,4 +1,3 @@
-const { patientDB, bpmdb } = require('../config/db');
 const  User   = require('../models/User');
 const userserv =require('../services/usersrvc')
 const jwt = require('jsonwebtoken');
