@@ -1,7 +1,7 @@
 
 // Importer le modèle Doctor depuis le fichier doctor.js
-const { Doctor } = require('../models/Doctor');
-const { Photo } = require('../models/imageModel');
+const  Doctor  = require('../models/Doctor');
+const  Photo  = require('../models/imageModel');
 
 const bcrypt = require("bcrypt");
 const docserv =require('../services/doctorsrv');
