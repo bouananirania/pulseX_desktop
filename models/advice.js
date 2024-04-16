@@ -1,5 +1,5 @@
 const mongoose=require('mongoose');
-const advicedb =require('../config/db');
+const {advicedb} =require('../config/db');
 const User = require('../models/User');
 const { Schema }=mongoose ; 
 
@@ -24,5 +24,5 @@ const Adviceschema =new Schema({
 Adviceschema.index({ advice: 1 }, { expireAfterSeconds: 24 * 60 * 60 });
 
 
-const Advice=db.model('advice',Adviceschema);
+const Advice=advicedb.model('advice',Adviceschema);
 module.exports=Advice;

@@ -5,7 +5,7 @@ const measurementController = require('./controllers/measurementController');
 const userRoutes = require("./routes/userRoutes");
 const doctorRoutes = require("./routes/doctorRoutes");
 const measurementRoutes = require("./routes/measurementRoutes");
-
+const adviceRoutes = require('./routes/adviceRoutes');
 
 const app = express();
 const server = http.createServer(app);
@@ -21,6 +21,8 @@ app.use("/users", userRoutes);
 app.use("/doctors", doctorRoutes);
 //route pour les donnees bpm 
 app.use("/measurement", measurementRoutes);
+
+app.use("/ad",adviceRoutes);
 
 
 // Écoute des nouvelles connexions Socket.IO
