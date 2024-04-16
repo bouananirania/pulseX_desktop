@@ -84,7 +84,7 @@ exports.updatedoctor= async(req,res)=>{
   const {id} = req.body;
   const {fullName,email,age,wilaya,phone,specialite,password,name} = req.body;
   try {
-  const data  = await Doctor.findByIdAndUpdate(id,  {fullName,email,age,wilaya,phone,specialite,password,name}, { new: true });
+  const data  = await Doctor.findByIdAndUpdate(id,  {fullName,email,age,wilaya,phone,specialite,password,name}, {new:true,useFindAndModify:false});
       res.json({status:true,success:update})
 }catch(err){ return res.status(500).json({ message: ' server error', err: err.message });
 }};
