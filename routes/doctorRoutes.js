@@ -6,13 +6,14 @@ const upload = multer({ storage: storage });
 const doctorController = require('../controllers/doctorController');
 
 // Route pour la connexion du médecin
-router.post('/logindr', doctorController.loginDoctor);
+router.post('/logindr', doctorController.loginDoctor);//checked
 
 // Route pour obtenir les paramètres du médecin
-router.get('/settingsdr', doctorController.getDoctorSettings);
+router.get('/settingsdr', doctorController.getDoctorSettings);//checked
 
-router.post('/registerdoctor',upload.single('photo'),doctorController.registerdoctor);
-router.post('/deletedoc',doctorController.deletedoc);
-router.post('/updatedoc', doctorController.updatedoctor);
+router.post('/registerdoctor',upload.single('photo'),doctorController.registerdoctor);//checked
+router.delete('/deletedoc',doctorController.deletedoc);
+router.post('/updatedoc', doctorController.updatedoctor);//checked
+
 
 module.exports = router;
