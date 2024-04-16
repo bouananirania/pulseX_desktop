@@ -12,7 +12,7 @@ router.post('/logindr', doctorController.loginDoctor);//checked
 router.get('/settingsdr', doctorController.getDoctorSettings);//checked
 
 router.post('/registerdoctor',upload.single('photo'),doctorController.registerdoctor);//checked
-router.delete('/deletedoc',doctorController.deletedoc);//nrmlm cb 
+router.delete('/deletedoc',doctorController.deletedoc);//checked
 router.post('/updatedoc', doctorController.updatedoctor);//checked
 
 

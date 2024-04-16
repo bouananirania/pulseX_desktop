@@ -9,6 +9,9 @@ exports.createUser = async (req, res) => {
       const { fullName, email, idPulse, age, PhoneNumber, bloodType, wilaya, password,details,maladie,gender } = req.body;
       const hashedPassword = await bcrypt.hash(password, 10);
       // Récupérer l'ID du médecin à partir du jeton JWT
+      if (!req.headers.authorization) {
+        return res.status(401).json({ status: false, message: "Authorization header is missing" });
+    }
     const token = req.headers.authorization.split(' ')[1]; // Assurez-vous que le jeton JWT est correctement envoyé dans l'en-tête Authorization
     const decodedToken = jwt.verify(token, 'secretKey');
     const Doctorid = decodedToken.id;
@@ -77,7 +80,7 @@ exports.updateUser = async (req, res) => {
     console.error(err);
     res.status(500).json({ status: false, message: "Une erreur s'est produite lors de la récupération des données de l'utilisateur." });
   }};
-  
+
   exports.finding= async(req,res)=>{
     try{
     const {fullname}=req.body;
