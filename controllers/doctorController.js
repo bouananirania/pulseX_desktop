@@ -80,14 +80,16 @@ exports.registerdoctor= async(req,res,next)=>{
   
 }catch(err){console.log(err)}};
 
-exports.updatedoctor= async(req,res)=>{
-  const {id} = req.body;
-  const {fullName,email,age,wilaya,phone,specialite,password,name} = req.body;
+exports.updatedoctor = async (req, res) => {
+  const { id, fullName, email, age, wilaya, phone, specialite, password, name } = req.body;
   try {
-  const data  = await Doctor.findByIdAndUpdate(id,  {fullName,email,age,wilaya,phone,specialite,password,name}, {new:true,useFindAndModify:false});
-      res.json({status:true,success:update})
-}catch(err){ return res.status(500).json({ message: ' server error', err: err.message });
-}};
+    const data = await Doctor.findByIdAndUpdate(id, { fullName, email, age, wilaya, phone, specialite, password, name }, { new: true, useFindAndModify: false });
+    res.json({ status: true, success: data });
+  } catch (err) {
+    return res.status(500).json({ message: 'server error', err: err.message });
+  }
+};
+
 
 exports.deletedoc= async(req,res)=>{
   try{
