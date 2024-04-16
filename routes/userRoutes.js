@@ -1,14 +1,14 @@
 const express = require('express');
 const router = express.Router();
 const userController = require('../controllers/userController');
-// Route pour créer un nouvel utilisateur
+
+
 router.post('/addPatient', userController.createUser);
-
-// Route pour supprimer un utilisateur
-router.delete('/:userId', userController.deleteUser);
-
-// Route pour mettre à jour un utilisateur
-router.put('/:userId', userController.updateUser);
-router.get('/:userId',userController.getuserdata);
+router.delete('/deletuser', userController.deleteUser);
+router.put('/updateuser', userController.updateUser);
+router.get('/getuserdata',userController.getuserdata);
+//recuperer les patients du DR
+router.get('/patients',userController.getPatientsByDoctorId);
+router.post('/finding',userController.finding);
 
 module.exports = router;

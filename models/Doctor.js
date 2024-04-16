@@ -9,7 +9,10 @@ const doctorSchema = new mongoose.Schema({
     phone: { type: String, required: true },
     specialite: { type: String, required: true },
     password: { type: String, required: true },
-    confirmPassword: { type: String, required: true }
+    confirmPassword: { type: String, required: true },
+    name: String,
+    data: Buffer,
+    contentType: String,
 });
 
 const Doctor = doctorDB.doctorDB.model('Doctor', doctorSchema);

@@ -32,30 +32,24 @@ exports.createUser = async (req, res) => {
   };
 
   
-// Supprimer un utilisateur
 exports.deleteUser = async (req, res) => {
   try {
-    const userId = req.params.userId;
-    const deletedUser = await User.findByIdAndDelete(userId);
-        // Vérifier si l'utilisateur a été supprimé avec succès
+    const {id} = req.body;
+    const deletedUser = await User.findByIdAndDelete(id);
     if (!deletedUser) {
-        // Si l'utilisateur n'est pas trouvé, renvoyer une réponse 404
         return res.status(404).json({ success: false, message: 'Utilisateur non trouvé' });
       }
-  
-      // Renvoyer une réponse 204 (Pas de contenu) pour indiquer que la suppression a réussi
-      res.status(204).send();
+        res.status(204).send();
     } catch (err) {
-      // Gérer les erreurs
       console.error(err);
       res.status(500).json({ success: false, message: 'Erreur lors de la suppression de l\'utilisateur' });
     }
   };
 exports.updateUser = async (req, res) => {
   try {
-    const userId = req.params.userId;
-    const updatedUserData = req.body;
-    const updatedUser = await User.findByIdAndUpdate(userId, updatedUserData, { new: true });
+    const {id} = req.body;
+    const  { fullName, email, idPulse, age, PhoneNumber, bloodType, wilaya, password,details,maladie,gender } = req.body;
+    const updatedUser = await User.findByIdAndUpdate(id,  { fullName, email, idPulse, age, PhoneNumber, bloodType, wilaya, password,details,maladie,gender }, { new: true });
     if (!updatedUser) {
         // Si l'utilisateur n'est pas trouvé, renvoyer une réponse 404
         return res.status(404).json({ success: false, message: 'Utilisateur non trouvé' });
@@ -72,14 +66,21 @@ exports.updateUser = async (req, res) => {
 
    exports.getuserdata=async(req,res)=>{
     try {
-    const {userId}=req.params.userId;
+    const {id}=req.body;
     /*if (!userId) {
         return res.status(400).json({ status: false, message: "L'identifiant de l'utilisateur est manquant dans la requête." });
     }
     */
-    const userData = await userserv.getdata(userId); 
+    const userData = await userserv.getdata(id); 
     res.json({ status: true, success: userData });
       } catch (err) {
     console.error(err);
     res.status(500).json({ status: false, message: "Une erreur s'est produite lors de la récupération des données de l'utilisateur." });
-  }}
+  }};
+  
+  exports.finding= async(req,res)=>{
+    try{
+    const {fullname}=req.body;
+    let finding =await userserv.finding(fullname);
+    res.json({status:true,success:finding});
+  }catch(err){console.log(err)}};

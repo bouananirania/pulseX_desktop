@@ -43,6 +43,13 @@ class serviceuser{
         }
 
       }
+      static async finding(fullname){
+        
+        const finding=await user.findOne({fullname});
+        return finding;
+  
+       
+      }
      
      static async generatetoken(tokendata,secretkey,jwt_expire){
         return jwt.sign(tokendata,secretkey,{expiresIn:jwt_expire})

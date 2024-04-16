@@ -2,9 +2,9 @@ const DoctorModel = require('../models/Doctor');
 const jwt = require('jsonwebtoken');
 
 class DoctorService {
-  static async registerDoctor(fullname,email, age, wilaya,phone,specialite, password,confirmPassword ) {
+  static async registerDoctor(fullName,email,age,wilaya,phone,specialite,password,confirmPassword,name,data,contentType) {
     try {
-      const newDoctor = new DoctorModel({  fullname,email, age, wilaya,phone,specialite, password,confirmPassword });
+      const newDoctor = new DoctorModel({  fullName,email,age,wilaya,phone,specialite,password,confirmPassword,name,data,contentType});
       return await newDoctor.save();
     } catch (err) {
       console.error(err);
