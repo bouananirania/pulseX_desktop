@@ -94,7 +94,7 @@ exports.updatedoctor = async (req, res) => {
 exports.deletedoc= async(req,res)=>{
   try{
   const {id}=req.body
-  const deleteDr = await User.findByIdAndDelete(id);
+  const deleteDr = await Doctor.findByIdAndDelete(id);
  res.json({status:true,success:deleteDr});
 }catch(err){console.log(err);}};
 
