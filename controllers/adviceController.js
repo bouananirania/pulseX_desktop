@@ -5,7 +5,7 @@ exports.registeradvice= async(req,res,next)=>{
     const {advice,userId,docname}=req.body;
     
         const adv =new Advice({advice,userId,docname});
-        return await adv.save();
+         await adv.save();
     res.json({status:true,success:"user succsefully"});
     
   }catch(err){console.log(err)}};
