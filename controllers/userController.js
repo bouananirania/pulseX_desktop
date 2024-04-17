@@ -83,7 +83,7 @@ exports.updateUser = async (req, res) => {
 
   exports.finding= async(req,res)=>{
     try{
-    const {fullname}=req.body;
-    const usr =await userserv.find(fullname);
+    const { fullName }=req.body;
+    const usr =await userserv.Find(fullName);
     res.json({status:true,success:usr});
   }catch(err){console.log(err)}};
