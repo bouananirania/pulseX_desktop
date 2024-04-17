@@ -1,6 +1,6 @@
 
 const User = require('../models/User');
-const userserv =require('../services/usersrvc');
+const userserv =require('../services/usersrvc').default;
 const bpm = require("../models/Bpm")
 const notifier = require('node-notifier');
 
