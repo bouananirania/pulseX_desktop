@@ -4,11 +4,11 @@ const userController = require('../controllers/userController');
 
 
 router.post('/addPatient', userController.createUser);//checked
-router.delete('/deletuser', userController.deleteUser);
+router.delete('/deletuser', userController.deleteUser);//checked
 router.put('/updateuser', userController.updateUser);//checked
 router.get('/getuserdata',userController.getuserdata);//checked
 //recuperer les patients du DR
 router.get('/patients',userController.getPatientsByDoctorId);//checked
-router.get('/finding',userController.finding);//still
+router.get('/finding',userController.finding);//checked
 
 module.exports = router;
