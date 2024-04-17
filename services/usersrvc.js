@@ -14,7 +14,7 @@ class serviceuser{
        }catch(err){console.log(err)}
      }
 
-     static async getdata(userId){
+     static async getdata(_id){
       try{
       const data=await user.find({_id});
       return data;
