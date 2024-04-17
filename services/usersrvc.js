@@ -18,11 +18,8 @@ class serviceuser{
      static async getdata(_id){
       try{
       const data=await user.find({_id});
-      const hashedPassword = user.password;
-      const isMatch = await bcrypt.compare(passwordFromRequest, hashedPassword);
-         if (isMatch) {
-            user.decryptedPassword = passwordFromRequest;
-            return user; }
+      
+            return data; 
 
       }catch(err){console.log(err)}
     }
