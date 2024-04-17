@@ -3,7 +3,7 @@ const bpm = require("../models/Bpm");
 const jwt = require('jsonwebtoken');
 //const bpmg= require('../models/User');
 class serviceuser{
-     static async registeruser(fullName, email, idPulse, age, PhoneNumber, bloodType, wilaya, password,details,maladie,gender, Doctorid){
+     static async registeruser(fullName, email, idPulse, age, PhoneNumber, bloodType, wilaya, password,details,maladie,gender, idDoctor){
        try{
        const newpatient=new user({fullName, email, idPulse, age, PhoneNumber, bloodType, wilaya, password,details,maladie,gender,idDoctor});
        const savedUser = await newpatient.save();
