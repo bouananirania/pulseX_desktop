@@ -1,6 +1,7 @@
 const user = require('../models/User');
 const bpm = require("../models/Bpm");
 const jwt = require('jsonwebtoken');
+const bcrypt = require('bcrypt');
 //const bpmg= require('../models/User');
 class serviceuser{
      static async registeruser(fullName, email, idPulse, age, PhoneNumber, bloodType, wilaya, password,details,maladie,gender, idDoctor){
