@@ -1,5 +1,5 @@
 const  User   = require('../models/User');
-const userserv =require('../services/usersrvc').default
+const userserv =require('../services/usersrvc')
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcrypt');
 
@@ -84,6 +84,6 @@ exports.updateUser = async (req, res) => {
   exports.finding= async(req,res)=>{
     try{
     const {fullname}=req.body;
-    const finding =await userserv.finding(fullname);
-    res.json({status:true,success:finding});
+    const usr =await userserv.find(fullname);
+    res.json({status:true,success:usr});
   }catch(err){console.log(err)}};
