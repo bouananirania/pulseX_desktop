@@ -12,7 +12,7 @@ exports.createUser = async (req, res) => {
       if (!req.headers.authorization) {
         return res.status(401).json({ status: false, message: "Authorization header is missing" });
     }
-    const token = req.headers.authorization.split(' ')[1]; // Assurez-vous que le jeton JWT est correctement envoyé dans l'en-tête Authorization
+    const token = req.headers.authorization.split(' ')[1]; 
     const decodedToken = jwt.verify(token, 'secretKey');
     const Doctorid = decodedToken.id;
       const usercontrol =await userserv.registeruser(fullName, email, idPulse, age, PhoneNumber, bloodType, wilaya, hashedPassword,details,maladie,gender, Doctorid );

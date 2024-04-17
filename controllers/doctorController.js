@@ -22,7 +22,7 @@ exports.loginDoctor = async (req, res) => {
      let tokendata ={id:doctor._id,email:doctor.email,fullname:doctor.fullName,password:doctor.password,phone:doctor.phone,Age:doctor.age,Specialite:doctor.specialite,willaya:doctor.willaya}
      var token =await docserv.generateToken(tokendata,'secretKey',"1h")
    
-   res.json({status:true,success:"user succsefully",token:token})
+   res.json({status:true,success:"user succsefully",token:token});
 
   } catch (err) {
     res.status(500).send({ message: err.message });

@@ -47,7 +47,7 @@ class serviceuser{
       }
       static async finding(fullname){
         
-        const finding = await user.findOne({ fullName: fullname });
+        const finding = await user.find({fullname});
         return finding;
   
        
