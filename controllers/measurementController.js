@@ -4,7 +4,7 @@ const userserv =require('../services/usersrvc');
 const bpm = require("../models/Bpm")
 const notifier = require('node-notifier');
 
-const sendLatestBpmToClient = async () => {
+const sendLatestBpmToClient = async (res) => {
    
       try {
         const latestBpmDataFromDB = await bpm.find().sort({ timestamp: -1 });
