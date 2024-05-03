@@ -17,15 +17,8 @@ const sendLatestBpmToClient = async (req,res) => {
 
        } catch (err) {
         console.error('Erreur lors de la gestion des données bpm :', err);
-      }}
+      }};
     
-      
-      const intervalId = setInterval(() => {
-        sendLatestBpmToClient();
-    }, 1000);
-
-    
-
 const checkAndSendNotifications = async (idPulse, bpm) => {
     if (bpm < 60 || bpm > 100) {
         try {
