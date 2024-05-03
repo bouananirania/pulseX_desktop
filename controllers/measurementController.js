@@ -7,11 +7,12 @@ const notifier = require('node-notifier');
 const sendLatestBpmToClient = async (req,res) => {
    
       try {
-        const latestBpmDataFromDB = await bpm.find().sort({ timestamp: -1 });
+        const latestBpmDataFromDB = await bpm.find();
+        //.sort({ timestamp: -1 });
         for (const entry of latestBpmDataFromDB) {
           const { idPulse, bpm } = entry;
           const data = JSON.stringify(entry);
-          res.write(`data: latestBpmData_${idPulse} ${data}\n\n`);
+          res.json(`data: latestBpmData_${idPulse} ${data}`);
           await checkAndSendNotifications(idPulse, bpm);
          };
 
