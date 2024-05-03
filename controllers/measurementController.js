@@ -24,10 +24,7 @@ exports.sendLatestBpmToClient = async () => {
         sendLatestBpmToClient();
     }, 1000);
 
-    req.on('close', () => {
-      clearInterval(intervalId);
-      res.end();
-  });
+    
 
 const checkAndSendNotifications = async (idPulse, bpm) => {
     if (bpm < 60 || bpm > 100) {
