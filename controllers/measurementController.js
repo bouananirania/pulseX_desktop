@@ -19,7 +19,7 @@ exports.sendLatestBpmToClient = async () => {
         console.error('Erreur lors de la gestion des données bpm :', err);
       }}
     
-      sendLatestBpmData();
+      sendLatestBpmToClient();
       const intervalId = setInterval(() => {
         sendLatestBpmData();
     }, 10000);
