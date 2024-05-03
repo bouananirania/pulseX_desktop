@@ -4,16 +4,16 @@ const userserv =require('../services/usersrvc');
 const bpm = require("../models/Bpm")
 const notifier = require('node-notifier');
 
-const sendLatestBpmToClient = async (res) => {
+const sendLatestBpmToClient = async (req,res) => {
    
       try {
         const latestBpmDataFromDB = await bpm.find().sort({ timestamp: -1 });
-        latestBpmDataFromDB.forEach(async (entry) => {
-          const { idPulse, bpm } = entry; 
+        for (const entry of latestBpmDataFromDB) {
+          const { idPulse, bpm } = entry;
           const data = JSON.stringify(entry);
-          res.write(`latestBpmData_${idPulse}`, data);
-          await checkAndSendNotifications(idPulse, bpm); 
-         });
+          res.write(`data: latestBpmData_${idPulse} ${data}\n\n`);
+          await checkAndSendNotifications(idPulse, bpm);
+         };
 
        } catch (err) {
         console.error('Erreur lors de la gestion des données bpm :', err);

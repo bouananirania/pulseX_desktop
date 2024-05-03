@@ -7,6 +7,6 @@ router.get('/bpm', (req, res) => {
   res.setHeader('Content-Type', 'text/event-stream');
   res.setHeader('Cache-Control', 'no-cache');
   res.setHeader('Connection', 'keep-alive');
-  measurementController(req, res);
+  measurementController.sendLatestBpmToClient;
 });
 module.exports = router;
