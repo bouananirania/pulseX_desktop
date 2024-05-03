@@ -21,7 +21,7 @@ exports.sendLatestBpmToClient = async () => {
     
       sendLatestBpmToClient();
       const intervalId = setInterval(() => {
-        sendLatestBpmData();
+        sendLatestBpmToClient();
     }, 10000);
 
     req.on('close', () => {
