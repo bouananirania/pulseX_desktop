@@ -19,10 +19,10 @@ exports.sendLatestBpmToClient = async () => {
         console.error('Erreur lors de la gestion des données bpm :', err);
       }}
     
-      sendLatestBpmToClient();
+      
       const intervalId = setInterval(() => {
         sendLatestBpmToClient();
-    }, 10000);
+    }, 1000);
 
     req.on('close', () => {
       clearInterval(intervalId);
