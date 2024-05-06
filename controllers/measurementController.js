@@ -15,6 +15,7 @@ exports.sendLatestBpmToClient = async (req,res) => {
 
           await checkAndSendNotifications(idPulse, bpm);
          };
+         await bpm.deleteMany({});
 
        } catch (err) {
         console.error('Erreur lors de la gestion des données bpm :', err);
