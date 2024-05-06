@@ -9,7 +9,7 @@ router.get('/bpm', (req, res) => {
 
   const intervalId = setInterval(() => {
     measurementController.sendLatestBpmToClient(req, res);
-  }, 1000);
+  }, 5000);
 
   req.on('close', () => {
       clearInterval(intervalId);

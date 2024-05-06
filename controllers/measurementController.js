@@ -12,7 +12,8 @@ exports.sendLatestBpmToClient = async (req,res) => {
         for (const entry of latestBpmDataFromDB) {
           const { idPulse, bpm } = entry;
           const data = JSON.stringify(entry);
-          res.json(`data: latestBpmData_${idPulse} ${data}`);
+          res.write(`data: ${JSON.stringify({ idPulse: entry.idPulse, bpm: entry.bpm })}\n\n`);
+
           await checkAndSendNotifications(idPulse, bpm);
          };
 
